@@ -1,15 +1,8 @@
-import pdfplumber
+from scrape_sources import scrape_bowl
 
 
 def main():
-    pdf = pdfplumber.open("jmc_25")
-    page = pdf.pages[1]
-    lines = page.extract_text_lines()
-
-    im = page.to_image(resolution=163)
-    im.draw_rects(lines)
-    im.show()
-
+    scrape_bowl.scrape('bowls/phys.pdf', 'PHYS-')
 
     breakpoint()
 
