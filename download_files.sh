@@ -1,5 +1,8 @@
 #!/bin/bash
 
+OUTPUT_DIR=./out/
+mkdir "$OUTPUT_DIR"
+
 BOWLS=./data/bowls/
 mkdir -p "$BOWLS"
 curl https://www.csun.edu/science/ref/games/questions/97_phys.pdf > "$BOWLS"/phys.pdf

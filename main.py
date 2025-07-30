@@ -1,12 +1,14 @@
+import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Literal
 
+from pydantic import BaseModel
+
 from scrape_sources import scrape_bowl, scrape_project_euler
 
 
-@dataclass
-class Problem:
+class Problem(BaseModel):
     question_type: Literal["Multiple Choice", "Short Answer", "Code"]
     question: str
     answer: str | None = None
@@ -53,7 +55,18 @@ def main():
 
     problems = list(map(lambda x: merge_into_problem(x), problems))
 
-    breakpoint()
+    # Serialize to JSON
+    output_dir = Path("./out/")
+    json_output = json.dumps([p.model_dump() for p in problems], indent=2)
+    print(json_output)
+    with open(output_dir.joinpath("problems.json"), "w", encoding="utf-8") as f:
+        f.write(json_output)
+
+    # Schema
+    schema = json.dumps(Problem.model_json_schema(), indent=2)
+    print(schema)
+    with open(output_dir.joinpath("problems_schema.json"), "w", encoding="utf-8") as f:
+        f.write(schema)
 
 
 if __name__ == "__main__":
