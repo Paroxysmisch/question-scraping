@@ -34,7 +34,12 @@ def extract_questions(
         question_type = "Short Answer"
 
     # Read the question
-    question = lines_txt[line_number].split(": ")[1]
+    question_split = lines_txt[line_number].split(": ")
+    if len(question_split) == 1:
+        question_split = lines_txt[line_number].split(
+            "Answer; "
+        )  # There are some malformed questions in the corpus that require this special treatment
+    question = question_split[1]
     line_number += 1
     while line_number < len(lines_txt) and not lines_txt[line_number].startswith(
         ("w)", "ANSWER")
@@ -50,7 +55,7 @@ def extract_questions(
         while line_number < len(lines_txt) and not lines_txt[line_number].startswith(
             "ANSWER"
         ):
-            choice_split = lines_txt[line_number].split(") ")
+            choice_split = lines_txt[line_number].split(")")
             if len(choice_split) > 1:
                 choices.append(choice_split[1])
             else:
@@ -71,7 +76,10 @@ def extract_questions(
         answer += lines_txt[line_number]
         line_number += 1
 
-    answer = answer.split("ANSWER: ")[1]  # Remove "ANSWER: "
+    answer_split = answer.split("ANSWER: ")  # Remove "ANSWER: "
+    if len(answer_split) == 1:
+        return None, line_number + 1  # Skip malformed questions
+    answer = answer_split[1]
 
     return BowlQuestion(question_type, question, choices, answer), line_number
 
