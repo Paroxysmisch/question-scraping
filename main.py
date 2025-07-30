@@ -32,7 +32,9 @@ def merge_into_problem(
             question_type="Code",
             question=problem.question,
             answer=None,
-            images_paths=[str(path) for path in problem.images_paths],
+            images_paths=[
+                str(path) for path in problem.images_paths
+            ],  # Convert from Path objects to just str
             answer_path=str(problem.answer_path),
         )
 
@@ -49,7 +51,7 @@ def main():
     image_dir = Path("./data/project_euler/resources/images/")
     problems.extend(scrape_project_euler.scrape(question_dir, answer_dir, image_dir))
 
-    problems = map(lambda x: merge_into_problem(x), problems)
+    problems = list(map(lambda x: merge_into_problem(x), problems))
 
     breakpoint()
 

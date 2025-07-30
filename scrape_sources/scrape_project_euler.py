@@ -61,6 +61,5 @@ def scrape(
 
         project_euler_question = ProjectEulerQuestion(question, media, answer)
         questions.append(project_euler_question)
-        print(project_euler_question)
 
     return questions

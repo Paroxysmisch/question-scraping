@@ -57,7 +57,9 @@ def extract_question(
         ):
             choice_split = lines_txt[line_number].split(")")
             if len(choice_split) > 1:
-                choices.append(choice_split[1])
+                choices.append(
+                    lines_txt[line_number]
+                )  # Add the multiple choice text
             else:
                 # The choice spans multiple lines
                 choices[-1] += choice_split[0]
