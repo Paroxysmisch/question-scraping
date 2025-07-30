@@ -7,7 +7,7 @@ curl https://www.csun.edu/science/ref/games/questions/97_biol.pdf > "$BOWLS"/bio
 curl https://www.csun.edu/science/ref/games/questions/97_chem.pdf > "$BOWLS"/chem.pdf
 
 PROJECT_EULER=./data/project_euler/
-mkdir -p "$PROJECT_EULER" "$PROJECT_EULER"/questions/ "$PROJECT_EULER"/answers/
+mkdir -p "$PROJECT_EULER" "$PROJECT_EULER"/questions/ "$PROJECT_EULER"/answers/ "$PROJECT_EULER"/resources/images/
 MAX_QUESTION_NUM=100
 # Download the questions
 for i in $(seq 1 "$MAX_QUESTION_NUM"); do

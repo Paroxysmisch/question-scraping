@@ -13,7 +13,7 @@ class BowlQuestion:
     answer: str
 
 
-def extract_questions(
+def extract_question(
     lines_txt: List[str], line_number: int, question_prefix: str
 ) -> Tuple[BowlQuestion | None, int | None]:
     # Find the start of the next question
@@ -86,6 +86,7 @@ def extract_questions(
 
 def scrape(file_path: Path, question_prefix: str) -> List[BowlQuestion]:
     pdf = pdfplumber.open(file_path)
+    questions = []
 
     for page in pdf.pages:
         lines = page.extract_text_lines()
@@ -97,10 +98,11 @@ def scrape(file_path: Path, question_prefix: str) -> List[BowlQuestion]:
 
         line_number = 0
         while line_number < len(lines_txt):
-            bowl_questions, new_line_number = extract_questions(
+            bowl_question, new_line_number = extract_question(
                 lines_txt, line_number, question_prefix
             )
-            print(bowl_questions)
+            if bowl_question is not None:
+                questions.append(bowl_question)
             line_number = new_line_number
 
-    return []
+    return questions
