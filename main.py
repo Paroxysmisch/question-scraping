@@ -58,12 +58,15 @@ def main():
     # Serialize to JSON
     output_dir = Path("./out/")
     json_output = json.dumps([p.model_dump() for p in problems], indent=2)
+    print("Problems JSON Output:")
     print(json_output)
     with open(output_dir.joinpath("problems.json"), "w", encoding="utf-8") as f:
         f.write(json_output)
+    print()
 
     # Schema
     schema = json.dumps(Problem.model_json_schema(), indent=2)
+    print("Problems JSON Schema Output:")
     print(schema)
     with open(output_dir.joinpath("problems_schema.json"), "w", encoding="utf-8") as f:
         f.write(schema)
