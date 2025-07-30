@@ -16,7 +16,7 @@ The idea behind this code base is to make question scraping modular for each typ
 
 Each of the scraping modules outputs a `List` of its own problem type (they are Python dataclasses). These are `BowlQuestion` and `ProjectEulerQuestion`.
 
-`main.py` is responsible for aggregating the different problem types into a unified format (called `Problem`), which is then output as JSON (along with its corresponding JSON schema) in the `./out/` directory.
+`main.py` is responsible for aggregating the different problem types into a unified format (called `Problem`), which is then output as JSON (along with its corresponding JSON schema) in the `./out/` directory. Note that since the answer and images are large/cannot be put into JSON, the Project Euler problems point to answer_path and images_paths that point to the appropriate, automatically downloaded resources.
 
 This project makes use of Python type-checking (and also Pydantic) and the UV package manager to pin dependencies.
 
